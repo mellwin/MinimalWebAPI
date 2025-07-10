@@ -1,13 +1,16 @@
-﻿namespace WebAPI.Endpoints
+﻿using WebAPI.Services;
+
+namespace WebAPI.Endpoints
 {
     public static class Endpoints
     {
         public static void MapEndpoints(this WebApplication app)
         {
-            app.MapGet("/accounts", async () => 
+            app.MapGet("/accounts", async (IAccountService accountService) => 
             {
                 //any logic
-                return Results.Ok("List of accounts");
+                var accounts = await accountService.GetAllAsync();
+                return Results.Ok("accounts");
             });
         }
     }
